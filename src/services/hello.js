@@ -1,4 +1,4 @@
-const request = require('superagent')
+const axios = require('axios').default
 const { HTTP, CONSTANTS, CloudEvent } = require('cloudevents')
 const { Hello } = require('../domain/entity/hello')
 
@@ -8,12 +8,17 @@ const source = '//events/serving-showcase'
 let number = 0
 
 class Greeter {
-  constructor(sink) {
+  constructor(sink, greeting) {
 
     /**
      * @type {() => string}
      */
     this.sink = sink
+
+    /**
+     * @type {() => string}
+     */
+    this.greeting = greeting
   }
 
   /**
@@ -22,7 +27,7 @@ class Greeter {
    */
   async hello({ who }) {
     const hello = new Hello({
-      greeting: 'Hello',
+      greeting: this.greeting(),
       who,
       number: ++number
     })
@@ -34,12 +39,13 @@ class Greeter {
     })
     const message = HTTP.structured(ce)
 
-    const req = request.post(url)
-    Object.keys(message.headers).forEach((key) => {
-      req.set(key, message.headers[key])
-    })
     try {
-      await req.send(message.body)
+      await axios({
+        method: 'post',
+        url,
+        data: message.body,
+        headers: message.headers
+      })
       console.log(`Event ${ce.id} sent to ${url}`)
     } catch (err) {
       console.error(`Couldn't send an event ${ce.id} to ${url}`, err)

@@ -29,11 +29,12 @@ describe('Greeter', () => {
   
         return [201, 'OK']
       })
-  
-    const g = new Greeter(() => url)
+
+    const g = new Greeter(() => url, () => 'Hola')
     const hello = await g.hello({ who })
   
     expect(hello.who).toEqual(who)
+    expect(hello.greeting).toEqual('Hola')
     expect(counter).toEqual(1)
     const data = JSON.parse(receivedEvent.data)
     expect(data.who).toEqual(who)
