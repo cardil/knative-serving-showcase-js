@@ -2,7 +2,7 @@ const nock = require('nock')
 const freePort = require('get-port')
 const { HTTP } = require('cloudevents')
 
-const { Greeter } = require('../../src/services/hello')
+const { Greeter } = require('../../src/services/greeter')
 const mockUrl = (port) => `http://localhost:${port}/`
 
 let counter = 0
@@ -36,7 +36,6 @@ describe('Greeter', () => {
     expect(hello.who).toEqual(who)
     expect(hello.greeting).toEqual('Hola')
     expect(counter).toEqual(1)
-    const data = JSON.parse(receivedEvent.data)
-    expect(data.who).toEqual(who)
+    expect(receivedEvent.data.who).toEqual(who)
   })
 })

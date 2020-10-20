@@ -1,4 +1,4 @@
-const { Greeter } = require('../services/hello')
+const { Greeter } = require('../services/greeter')
 const { sink, greeting } = require('../services/config')
 
 module.exports = (app) => {
