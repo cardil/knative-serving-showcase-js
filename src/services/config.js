@@ -1,6 +1,6 @@
 module.exports = {
 
-  async getSink() {
+  sink() {
     return process.env.K_SINK
   }
 
