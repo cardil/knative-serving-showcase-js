@@ -9,11 +9,23 @@ let number = 0
 
 class Greeter {
   constructor(sink) {
+
+    /**
+     * @type {() => string}
+     */
     this.sink = sink
   }
 
+  /**
+   * @param {string} who
+   * @returns {Hello}
+   */
   async hello({ who }) {
-    const hello = new Hello('Hello', who, ++number)
+    const hello = new Hello({
+      greeting: 'Hello',
+      who,
+      number: ++number
+    })
     const url = this.sink()
     const data = JSON.stringify(hello)
     const ce = new CloudEvent({

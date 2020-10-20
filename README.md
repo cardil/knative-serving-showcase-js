@@ -41,5 +41,6 @@
   http :21111/status
   ```
 
+* [ ] OpenAPI & Swagger UI
 * [ ] opentracing & opentelemetry
 * [ ] Input validation
