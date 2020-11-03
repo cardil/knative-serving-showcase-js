@@ -1,12 +1,7 @@
 const express = require('express')
 
-let dotenvConfigured = false
-
 function createApp() {
-  if (!dotenvConfigured) {
-    require('dotenv').config()
-    dotenvConfigured = true
-  }
+  require('dotenv').config()
 
   const ex = express()
 
