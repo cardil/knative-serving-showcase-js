@@ -30,8 +30,16 @@ describe('Greeter', () => {
         return [201, 'OK']
       })
 
-    const g = new Greeter(() => url, () => 'Hola')
-    const hello = await g.hello({ who })
+    const config = {
+      sink: () => url,
+      greeting: () => 'Hola',
+      delay: () => 0,
+    }
+    const g = new Greeter(config)
+
+    jest.spyOn(global.console, 'log').mockImplementation(() => jest.fn());
+
+    const hello = await g.hello(who)
   
     expect(hello.who).toEqual(who)
     expect(hello.greeting).toEqual('Hola')

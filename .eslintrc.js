@@ -7,7 +7,8 @@ module.exports = {
     browser: false,
     node: true,
     commonjs: true,
-    amd: false
+    amd: false,
+    'jest/globals': true
   },
 
   rules: {
