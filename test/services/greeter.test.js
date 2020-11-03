@@ -14,19 +14,19 @@ describe('Greeter', () => {
     const url = mockUrl(port)
     const who = people[Math.ceil(Math.random() * people.length)]
     let receivedEvent = {}
-  
+
     nock(url)
       .post('/')
       .once()
       .reply(function (_uri, body) {
         counter++
-  
+
         const req = this.req // eslint-disable-line no-invalid-this
         receivedEvent = HTTP.toEvent({
           headers: req.headers,
           body
         })
-  
+
         return [201, 'OK']
       })
 
@@ -40,7 +40,7 @@ describe('Greeter', () => {
     jest.spyOn(global.console, 'log').mockImplementation(() => jest.fn())
 
     const hello = await g.hello(who)
-  
+
     expect(hello.who).toEqual(who)
     expect(hello.greeting).toEqual('Hola')
     expect(counter).toEqual(1)
