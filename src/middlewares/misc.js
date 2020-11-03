@@ -4,7 +4,7 @@ const morgan = require('morgan')
 module.exports = (app) => {
 
   app.use(morgan('dev', {
-    skip: function (_, res) { 
+    skip(_, res) {
       return typeof jest !== 'undefined' && res.statusCode < 400
     }
   }))

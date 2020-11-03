@@ -5,7 +5,7 @@ describe('Route', () => {
   const app = require('../../src/app').createApp()
   it('GET /hello?who=James', async () => {
     let counter = 0
-    jest.spyOn(global.console, 'log').mockImplementation(() => jest.fn());
+    jest.spyOn(global.console, 'log').mockImplementation(() => jest.fn())
 
     await nock('http://localhost:31111')
       .post('/')

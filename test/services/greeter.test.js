@@ -37,7 +37,7 @@ describe('Greeter', () => {
     }
     const g = new Greeter(config)
 
-    jest.spyOn(global.console, 'log').mockImplementation(() => jest.fn());
+    jest.spyOn(global.console, 'log').mockImplementation(() => jest.fn())
 
     const hello = await g.hello(who)
   

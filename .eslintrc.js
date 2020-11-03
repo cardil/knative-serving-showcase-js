@@ -11,6 +11,8 @@ module.exports = {
     'jest/globals': true
   },
 
+  plugins: ['jest'],
+
   rules: {
     semi: ['error', 'never'],
     indent: ["error", 2],
