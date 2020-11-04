@@ -14,7 +14,7 @@ describe('Route', () => {
         return [201, 'OK']
       })
 
-    await request(app)
+    await request(await app)
       .get('/hello')
       .query({ who: 'James' })
       .expect('Content-Type', /application\/json/)
