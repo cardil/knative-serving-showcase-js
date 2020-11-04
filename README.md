@@ -23,7 +23,7 @@
   http :21111/hello
   ```
 
-* [ ] `DELAY` parameter (in msec) for `/hello`
+* [x] `DELAY` parameter (in msec) for `/hello`
 
 ### Nice to have
 
@@ -42,5 +42,9 @@
   ```
 
 * [ ] OpenAPI & Swagger UI
-* [ ] opentracing & opentelemetry
+* [x] opentracing & opentelemetry
+
+  ```bash
+  http :21111/openapi.json
+  ```
 * [ ] Input validation
