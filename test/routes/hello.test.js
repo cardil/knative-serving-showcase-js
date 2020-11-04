@@ -27,4 +27,12 @@ describe('Route', () => {
     expect(counter).toEqual(1)
   })
 
+  it('GET /hello?who=nobody', async () => {
+    await request(await app)
+      .get('/hello')
+      .query({ who: 'nobody' })
+      .expect('Content-Type', /application\/json/)
+      .expect(400)
+  })
+
 })
