@@ -2,12 +2,16 @@
   "name": "@cardil/knative-serving-showcase",
   "version": "0.3.1-pre",
   "description": "A showcase app for knative serving written in Node.js",
-  "main": "src/index.js",
+  "main": "src/app.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "test": "jest test/**",
-    "lint": "eslint ."
+    "start": "node src/index",
+    "dev": "nodemon src/index",
+    "test:jest": "jest test/**",
+    "lint:eslint": "eslint .",
+    "build:image": "invoke-script src/scripts/build-image knative-serving-showcase-js deployment/container/Containerfile",
+    "test": "npm run lint && npm run test:jest",
+    "lint": "npm run lint:eslint",
+    "build": "npm run test && npm run build:image"
   },
   "repository": {
     "type": "git",
@@ -41,13 +45,16 @@
   },
   "devDependencies": {
     "@types/jest": "^26.0.14",
+    "chalk": "^4.1.0",
     "eslint": "^6.8.0",
     "eslint-config-piecioshka": "^2.0.3",
     "eslint-plugin-jest": "^24.1.0",
     "get-port": "^5.1.1",
+    "invoke-script": "^1.3.0",
     "jest": "^26.6.0",
     "nock": "^13.0.4",
     "nodemon": "^2.0.5",
+    "shelljs": "^0.8.4",
     "supertest": "^5.0.0"
   }
 }
