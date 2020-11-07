@@ -1,26 +1,41 @@
 const shell = require('shelljs')
 const chalk = require('chalk')
 
-function buildImage(name, containerfile) {
+function buildImage(name) {
   require('dotenv').config()
-  console.info(chalk.greenBright(`📦 Packaging OCI image: ${name}`))
-
+  
   const basename = process.env.CONTAINER_BASENAME
-  container(`build -f ${containerfile} -t ${basename}${name} .`)
+  console.info(chalk.greenBright(`📦 Packaging OCI image: ${name}`))
+  container(`build -f deployment/Dockerfile -t ${basename}${name} .`).then((code) => {
+    if (code !== 0) {
+      throw new Error(`Process exited with ${code} retcode`)
+    }
+  })
 }
 
 function container(args) {
   const eng = resolveContainerEngine()
-  stream(chalk.blue(`[${eng}]`), `${eng} ${args}`)
+  return stream(eng, `${eng} ${args}`)
 }
 
 function stream(label, command) {
-  const child = shell.exec(command, { async: true, silent: true })
-  child.stdout.on('data', (data) => {
-    process.stdout.write(`${label} ${data}`)
-  })
-  child.stderr.on('data', (data) => {
-    process.stdout.write(chalk.red(`${label} ${data}`))
+  return new Promise((resolve) => {
+    const child = shell.exec(command, { async: true, silent: true })
+    child.stdout.on('data', (data) => {
+      for (const line of data.trimRight('\n').split('\n')) {
+        const tag = chalk.blue(`[${label}]`)
+        console.log(`${tag} ${line}`)
+      }
+    })
+    child.stderr.on('data', (data) => {
+      for (const line of data.trimRight('\n').split('\n')) {
+        const tag = chalk.red(`[${label}]`)
+        console.log(`${tag} ${line}`)
+      }
+    })
+    child.on('exit', (code) => {
+      resolve(code)
+    })
   })
 }
 

@@ -8,7 +8,8 @@
     "dev": "nodemon src/index",
     "test:jest": "jest test/**",
     "lint:eslint": "eslint .",
-    "build:image": "invoke-script src/scripts/build-image knative-serving-showcase-js deployment/container/Containerfile",
+    "build:cache-git": "invoke-script src/scripts/cache-git-describe",
+    "build:image": "npm run build:cache-git && invoke-script src/scripts/build-image knative-serving-showcase-js",
     "test": "npm run lint && npm run test:jest",
     "lint": "npm run lint:eslint",
     "build": "npm run test && npm run build:image"
@@ -39,12 +40,12 @@
     "express": "^4.17.1",
     "express-handlebars": "^5.1.0",
     "express-prometheus-middleware": "^0.9.6",
-    "git-describe": "^4.0.4",
     "morgan": "^1.10.0",
     "prom-client": "^12.0.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.14",
+    "git-describe": "^4.0.4",
     "chalk": "^4.1.0",
     "eslint": "^6.8.0",
     "eslint-config-piecioshka": "^2.0.3",
