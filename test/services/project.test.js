@@ -18,7 +18,7 @@ expect.extend({
   },
 })
 
-describe('prject', () => {
+describe('project', () => {
   it('resolve', async () => {
     const project = await resolveProject()
     expect(project.artifact).toEqual('@cardil/knative-serving-showcase')
