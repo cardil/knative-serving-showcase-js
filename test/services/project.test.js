@@ -11,7 +11,7 @@ expect.extend({
     if (gitDescribe.prerelease.length > 0) {
       gitDescribe = semver.coerce(gitDescribe.toString()).inc('patch')
     }
-    const pass = semver.gte(projectVersion, gitDescribe)
+    const pass = semver.eq(projectVersion, gitDescribe)
     const message = () =>
       `expected ${v1} to match GIT describe version of ${v2}`
     return { message, pass }
