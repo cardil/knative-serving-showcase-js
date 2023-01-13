@@ -15,7 +15,7 @@ async function resolveGitDescribe() {
         resolve(desc.tag)
         return
       }
-      resolve(desc.raw)
+      resolve(desc.semverString)
     })
   })
 }
