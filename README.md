@@ -1,5 +1,7 @@
 # Knative Serving Showcase for JS
 
+## Code donated to https://github.com/openshift-knative/showcase
+
 ## TODO
 
 ### Required
